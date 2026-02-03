@@ -20,7 +20,7 @@ public class GGBond {
                 int displayInputCount = 1;
                 System.out.println("----------------------------------------------------");
                 for (int i = 0; i < inputCounter; i++) {
-                    System.out.printf("%d.[%s] %s\n" , displayInputCount, list[i].getStatusIcon(), list[i].description);
+                    System.out.printf("%d.%s\n" , displayInputCount, list[i].toString());
                     displayInputCount++;
                 }
                 System.out.println("----------------------------------------------------");
@@ -30,7 +30,7 @@ public class GGBond {
                 list[taskNumber].setToDone();
                 System.out.println("----------------------------------------------------");
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.printf("[%s] %s\n",list[taskNumber].getStatusIcon(), list[taskNumber].description);
+                System.out.printf("%s\n",list[taskNumber].toString());
                 System.out.println("----------------------------------------------------");
             }
             else if (words[0].equals("unmark")) {
@@ -38,7 +38,7 @@ public class GGBond {
                 list[taskNumber].setToUndone();
                 System.out.println("----------------------------------------------------");
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.printf("[%s] %s\n",list[taskNumber].getStatusIcon(), list[taskNumber].description);
+                System.out.printf("%s\n",list[taskNumber].toString());
                 System.out.println("----------------------------------------------------");
             }
             else {
