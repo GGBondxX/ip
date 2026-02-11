@@ -1,18 +1,20 @@
+package command;
+
 import task.Task;
 
-public class UnmarkCommand extends Command{
+public class MarkCommand extends Command{
 
     private int targetIndex;
 
-    public UnmarkCommand(int index) {
+    public MarkCommand(int index) {
         this.targetIndex = index;
     }
 
     @Override
     public int execute(Task[] list, int inputCounter) {
-        list[targetIndex].setToUndone();
+        list[targetIndex].setToDone();
         System.out.println("----------------------------------------------------");
-        System.out.println("Nice! I've marked this task as not done yet:");
+        System.out.println("Nice! I've marked this task as done:");
         System.out.printf("%s\n", list[targetIndex].toString());
         System.out.println("----------------------------------------------------");
         return inputCounter;

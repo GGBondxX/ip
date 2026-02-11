@@ -1,3 +1,5 @@
+package command;
+
 import task.Task;
 
 public class ExitCommand extends Command{

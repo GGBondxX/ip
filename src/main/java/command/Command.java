@@ -1,3 +1,5 @@
+package command;
+
 import task.Task;
 
 public abstract class Command {
