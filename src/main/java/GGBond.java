@@ -15,7 +15,7 @@ public class GGBond {
         line = in.nextLine();
         String[] words = line.split(" ");
 
-        while (!(words[0].equals("bye"))) {
+        while (!(words[0].equalsIgnoreCase("bye"))) {
             if(words[0].equals("list")) {
                 int displayInputCount = 1;
                 System.out.println("----------------------------------------------------");
@@ -25,7 +25,7 @@ public class GGBond {
                 }
                 System.out.println("----------------------------------------------------");
             }
-            else if (words[0].equals("mark")) {
+            else if (words[0].equalsIgnoreCase("mark")) {
                 taskNumber =Integer.parseInt(words[1]) - 1;
                 list[taskNumber].setToDone();
                 System.out.println("----------------------------------------------------");
@@ -33,7 +33,7 @@ public class GGBond {
                 System.out.printf("%s\n",list[taskNumber].toString());
                 System.out.println("----------------------------------------------------");
             }
-            else if (words[0].equals("unmark")) {
+            else if (words[0].equalsIgnoreCase("unmark")) {
                 taskNumber =Integer.parseInt(words[1]) - 1;
                 list[taskNumber].setToUndone();
                 System.out.println("----------------------------------------------------");
@@ -41,13 +41,13 @@ public class GGBond {
                 System.out.printf("%s\n",list[taskNumber].toString());
                 System.out.println("----------------------------------------------------");
             }
-            else if (words[0].equals("todo")) {
+            else if (words[0].equalsIgnoreCase("todo")) {
                 inputCounter = addToTaskList(list, words, inputCounter, TaskType.TODO);
             }
-            else if (words[0].equals("deadline")) {
+            else if (words[0].equalsIgnoreCase("deadline")) {
                 inputCounter = addToTaskList(list, words, inputCounter, TaskType.DEADLINES);
             }
-            else if (words[0].equals("event")) {
+            else if (words[0].equalsIgnoreCase("event")) {
                 inputCounter = addToTaskList(list, words, inputCounter, TaskType.EVENT);
             }
             else {
