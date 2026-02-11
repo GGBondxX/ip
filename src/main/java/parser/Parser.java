@@ -1,3 +1,8 @@
+package parser;
+
+import command.*;
+import exceptions.InvalidCommandException;
+
 public class Parser {
 
     String[] words;
@@ -6,7 +11,7 @@ public class Parser {
         words = line.split(" ");
     }
 
-    protected Command callCommand() throws InvalidCommandException{
+    public Command callCommand() throws InvalidCommandException {
         this.words[0] = this.words[0].toLowerCase();
         int taskNumber = 0;
         String description = "";
