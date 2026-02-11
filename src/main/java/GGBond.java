@@ -28,6 +28,7 @@ public class GGBond {
             }
         }
         printMessage("Bye. Hope to see you again soon!");
+
     }
 
     private static void printMessage(String x) {
