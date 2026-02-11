@@ -1,4 +1,8 @@
-import java.util.Arrays;
+import task.Deadlines;
+import task.Events;
+import task.Task;
+import task.Todo;
+
 import java.util.Scanner;
 
 public class GGBond {
@@ -9,57 +13,53 @@ public class GGBond {
         int taskNumber = 0;
         String line;
 
-        System.out.println("----------------------------------------------------");
-        System.out.println("Hello! I'm GGBond.\n"  + " What can I do for you?\n");
-        System.out.println("----------------------------------------------------");
+        printMessage("Hello! I'm GGBond.\n" + " What can I do for you?");
         line = in.nextLine();
         String[] words = line.split(" ");
 
         while (!(words[0].equalsIgnoreCase("bye"))) {
-            if(words[0].equals("list")) {
-                int displayInputCount = 1;
-                System.out.println("----------------------------------------------------");
-                for (int i = 0; i < inputCounter; i++) {
-                    System.out.printf("%d.%s\n" , displayInputCount, list[i].toString());
-                    displayInputCount++;
+                if (words[0].equals("list")) {
+                    int displayInputCount = 1;
+                    System.out.println("----------------------------------------------------");
+                    for (int i = 0; i < inputCounter; i++) {
+                        System.out.printf("%d.%s\n", displayInputCount, list[i].toString());
+                        displayInputCount++;
+                    }
+                    System.out.println("----------------------------------------------------");
+                } else if (words[0].equalsIgnoreCase("mark")) {
+                    taskNumber = Integer.parseInt(words[1]) - 1;
+                    list[taskNumber].setToDone();
+                    System.out.println("----------------------------------------------------");
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.printf("%s\n", list[taskNumber].toString());
+                    System.out.println("----------------------------------------------------");
+                } else if (words[0].equalsIgnoreCase("unmark")) {
+                    taskNumber = Integer.parseInt(words[1]) - 1;
+                    list[taskNumber].setToUndone();
+                    System.out.println("----------------------------------------------------");
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.printf("%s\n", list[taskNumber].toString());
+                    System.out.println("----------------------------------------------------");
+                } else if (words[0].equalsIgnoreCase("todo")) {
+                    inputCounter = addToTaskList(list, words, inputCounter, TaskType.TODO);
+                } else if (words[0].equalsIgnoreCase("deadline")) {
+                    inputCounter = addToTaskList(list, words, inputCounter, TaskType.DEADLINES);
+                } else if (words[0].equalsIgnoreCase("event")) {
+                    inputCounter = addToTaskList(list, words, inputCounter, TaskType.EVENT);
+                } else {
+                    inputCounter = addToTaskList(list, words, inputCounter, TaskType.BASE);
+
                 }
-                System.out.println("----------------------------------------------------");
-            }
-            else if (words[0].equalsIgnoreCase("mark")) {
-                taskNumber =Integer.parseInt(words[1]) - 1;
-                list[taskNumber].setToDone();
-                System.out.println("----------------------------------------------------");
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.printf("%s\n",list[taskNumber].toString());
-                System.out.println("----------------------------------------------------");
-            }
-            else if (words[0].equalsIgnoreCase("unmark")) {
-                taskNumber =Integer.parseInt(words[1]) - 1;
-                list[taskNumber].setToUndone();
-                System.out.println("----------------------------------------------------");
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.printf("%s\n",list[taskNumber].toString());
-                System.out.println("----------------------------------------------------");
-            }
-            else if (words[0].equalsIgnoreCase("todo")) {
-                inputCounter = addToTaskList(list, words, inputCounter, TaskType.TODO);
-            }
-            else if (words[0].equalsIgnoreCase("deadline")) {
-                inputCounter = addToTaskList(list, words, inputCounter, TaskType.DEADLINES);
-            }
-            else if (words[0].equalsIgnoreCase("event")) {
-                inputCounter = addToTaskList(list, words, inputCounter, TaskType.EVENT);
-            }
-            else {
-                inputCounter = addToTaskList(list, words, inputCounter, TaskType.BASE);
+                line = in.nextLine();
+                words = line.split(" ");
 
             }
-            line = in.nextLine();
-            words = line.split(" ");
+        printMessage("Bye. Hope to see you again soon!");
+    }
 
-        }
+    private static void printMessage(String x) {
         System.out.println("----------------------------------------------------");
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(x);
         System.out.println("----------------------------------------------------");
     }
 
