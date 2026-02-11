@@ -1,7 +1,4 @@
-import task.Deadlines;
-import task.Events;
 import task.Task;
-import task.Todo;
 
 import java.util.Scanner;
 
@@ -10,120 +7,32 @@ public class GGBond {
         Scanner in = new Scanner(System.in);
         Task[] list = new Task[100];
         int inputCounter = 0;
-        int taskNumber = 0;
         String line;
 
         printMessage("Hello! I'm GGBond.\n" + " What can I do for you?");
-        line = in.nextLine();
-        String[] words = line.split(" ");
 
-        while (!(words[0].equalsIgnoreCase("bye"))) {
-                if (words[0].equals("list")) {
-                    int displayInputCount = 1;
-                    System.out.println("----------------------------------------------------");
-                    for (int i = 0; i < inputCounter; i++) {
-                        System.out.printf("%d.%s\n", displayInputCount, list[i].toString());
-                        displayInputCount++;
-                    }
-                    System.out.println("----------------------------------------------------");
-                } else if (words[0].equalsIgnoreCase("mark")) {
-                    taskNumber = Integer.parseInt(words[1]) - 1;
-                    list[taskNumber].setToDone();
-                    System.out.println("----------------------------------------------------");
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.printf("%s\n", list[taskNumber].toString());
-                    System.out.println("----------------------------------------------------");
-                } else if (words[0].equalsIgnoreCase("unmark")) {
-                    taskNumber = Integer.parseInt(words[1]) - 1;
-                    list[taskNumber].setToUndone();
-                    System.out.println("----------------------------------------------------");
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.printf("%s\n", list[taskNumber].toString());
-                    System.out.println("----------------------------------------------------");
-                } else if (words[0].equalsIgnoreCase("todo")) {
-                    inputCounter = addToTaskList(list, words, inputCounter, TaskType.TODO);
-                } else if (words[0].equalsIgnoreCase("deadline")) {
-                    inputCounter = addToTaskList(list, words, inputCounter, TaskType.DEADLINES);
-                } else if (words[0].equalsIgnoreCase("event")) {
-                    inputCounter = addToTaskList(list, words, inputCounter, TaskType.EVENT);
-                } else {
-                    inputCounter = addToTaskList(list, words, inputCounter, TaskType.BASE);
+        Command command = null;
+        boolean isExit = false;
 
-                }
+        while(!isExit) {
+            try {
                 line = in.nextLine();
-                words = line.split(" ");
-
+                Parser parser = new Parser(line);
+                command = parser.callCommand();
+                inputCounter = command.execute(list, inputCounter);
+                isExit = command.isExit();
+            } catch(InvalidCommandException e) {
+                System.out.println("----------------------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("----------------------------------------------------");
             }
+        }
         printMessage("Bye. Hope to see you again soon!");
     }
 
     private static void printMessage(String x) {
         System.out.println("----------------------------------------------------");
         System.out.println(x);
-        System.out.println("----------------------------------------------------");
-    }
-
-    public static int addToTaskList(Task[] list, String[] words, int inputCounter, TaskType type) {
-        if (type == TaskType.BASE) {
-            String line = String.join(" ", words);
-            list[inputCounter] = new Task(line);
-            printAddMessage(list, inputCounter);
-            return ++inputCounter;
-        }
-
-        String description = "";
-        String by = "";
-        String from = "";
-        String to = "";
-        String currentSection = "desc";
-
-        for (int i = 1; i < words.length; i++) {
-            if(words[i].equals("/by")) {
-                currentSection = "by";
-            }
-            else if (words[i].equals("/from")) {
-                currentSection = "from";
-            }
-            else if (words[i].equals("/to")) {
-                currentSection = "to";
-            }
-            else {
-                switch (currentSection) {
-                case "desc":
-                    description += (description.isEmpty() ? "" : " ") + words[i];
-                    break;
-                case "by":
-                    by += (by.isEmpty() ? "" : " ") + words[i];
-                    break;
-                case "from":
-                    from += (from.isEmpty() ? "" : " ") + words[i];
-                    break;
-                case "to":
-                    to += (to.isEmpty() ? "" : " ") + words[i];
-                    break;
-                }
-            }
-        }
-        switch(type) {
-        case TODO :
-            list[inputCounter] = new Todo(description);
-            break;
-        case DEADLINES :
-            list[inputCounter] = new Deadlines(description, by);
-            break;
-        case EVENT :
-            list[inputCounter] = new Events(description, from, to);
-            break;
-        }
-        printAddMessage(list, inputCounter);
-        return ++inputCounter;
-    }
-
-    public static void printAddMessage(Task[] list, int inputCounter) {
-        System.out.println("----------------------------------------------------");
-        System.out.println("Got it. I've added this task:");
-        System.out.printf("%s\n", list[inputCounter].toString());
-        System.out.printf("Now you have %d tasks in the list\n", inputCounter+1);
         System.out.println("----------------------------------------------------");
     }
 }
