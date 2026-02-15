@@ -3,6 +3,8 @@ package command;
 import task.Deadlines;
 import task.Task;
 
+import java.util.ArrayList;
+
 public class DeadlineCommand extends Command{
 
     private String description;
@@ -14,9 +16,9 @@ public class DeadlineCommand extends Command{
     }
 
     @Override
-    public int execute(Task[] list, int inputCounter) {
-        list[inputCounter] = new Deadlines(this.description, this.by);
-        printAddMessage(list, inputCounter);
-        return ++inputCounter;
+    public void execute(ArrayList<Task> list) {
+        Task task = new Deadlines(this.description, this.by);
+        list.add(task);
+        printAddMessage(list, task);
     }
 }

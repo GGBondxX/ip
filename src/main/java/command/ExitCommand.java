@@ -2,12 +2,13 @@ package command;
 
 import task.Task;
 
+import java.util.ArrayList;
+
 public class ExitCommand extends Command{
 
 
     @Override
-    public int execute(Task[] list, int inputCounter) {
+    public void execute(ArrayList<Task> list) {
         this.isExit = true;
-        return 0;
     }
 }

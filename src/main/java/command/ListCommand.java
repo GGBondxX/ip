@@ -2,18 +2,19 @@ package command;
 
 import task.Task;
 
+import java.util.ArrayList;
+
 public class ListCommand extends Command{
 
 
     @Override
-    public int execute(Task[] list, int inputCounter) {
+    public void execute(ArrayList<Task> list) {
         int displayInputCount = 1;
         System.out.println("----------------------------------------------------");
-        for (int i = 0; i < inputCounter; i++) {
-            System.out.printf("%d.%s\n", displayInputCount, list[i].toString());
+        for (Task task : list) {
+            System.out.printf("%d.%s\n", displayInputCount, task.toString());
             displayInputCount++;
         }
         System.out.println("----------------------------------------------------");
-        return inputCounter;
     }
 }

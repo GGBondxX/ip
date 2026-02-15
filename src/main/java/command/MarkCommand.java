@@ -2,6 +2,8 @@ package command;
 
 import task.Task;
 
+import java.util.ArrayList;
+
 public class MarkCommand extends Command{
 
     private int targetIndex;
@@ -11,12 +13,12 @@ public class MarkCommand extends Command{
     }
 
     @Override
-    public int execute(Task[] list, int inputCounter) {
-        list[targetIndex].setToDone();
+    public void execute(ArrayList<Task> list) {
+        Task task = list.get(targetIndex);
+        task.setToDone();
         System.out.println("----------------------------------------------------");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.printf("%s\n", list[targetIndex].toString());
+        System.out.printf("%s\n", task.toString());
         System.out.println("----------------------------------------------------");
-        return inputCounter;
     }
 }
