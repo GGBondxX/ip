@@ -13,4 +13,12 @@ public class Deadlines extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by:" + by + ")";
     }
+
+    @Override
+    public String toFileFormat() {
+        String line;
+        line = "D | " + (isDone ? "1 | " : "0 | ") + description + " | " + by;
+        return line;
+    }
+
 }
