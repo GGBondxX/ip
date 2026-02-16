@@ -60,6 +60,9 @@ public class Parser {
         case"unmark":
             taskNumber = Integer.parseInt(words[1]) - 1;
             return new UnmarkCommand(taskNumber);
+        case"delete":
+            taskNumber = Integer.parseInt(words[1]) - 1;
+            return new DeleteCommand(taskNumber);
         case"list":
             return new ListCommand();
         case"bye":

@@ -3,6 +3,8 @@ package command;
 import task.Task;
 import task.Todo;
 
+import java.util.ArrayList;
+
 public class TodoCommand extends Command{
 
     private String description;
@@ -12,9 +14,9 @@ public class TodoCommand extends Command{
     }
 
     @Override
-    public int execute(Task[] list, int inputCounter){
-        list[inputCounter] = new Todo(this.description);
-        printAddMessage(list, inputCounter);
-        return ++inputCounter;
+    public void execute(ArrayList<Task> list){
+        Task task = new Todo(this.description);
+        list.add(task);
+        printAddMessage(list, task);
     }
 }
