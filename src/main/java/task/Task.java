@@ -28,4 +28,8 @@ public class Task {
     public String getDescription() {
         return this.description;
     }
+
+    public String toFileFormat() {
+        return null;
+    }
 }
