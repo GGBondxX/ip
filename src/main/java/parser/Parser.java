@@ -47,25 +47,44 @@ public class Parser {
                 }
             }
         }
-        switch(words[0]) {
-        case"todo":
+
+        switch (this.words[0]) {
+        case "todo":
             return new TodoCommand(description);
-        case"deadline":
+        case "deadline":
             return new DeadlineCommand(description, by);
-        case"event":
+        case "event":
             return new EventCommand(description, from, to);
-        case"mark":
-            taskNumber = Integer.parseInt(words[1]) - 1;
-            return new MarkCommand(taskNumber);
-        case"unmark":
-            taskNumber = Integer.parseInt(words[1]) - 1;
-            return new UnmarkCommand(taskNumber);
-        case"delete":
-            taskNumber = Integer.parseInt(words[1]) - 1;
-            return new DeleteCommand(taskNumber);
-        case"list":
+        case "mark":
+            try {
+                taskNumber = Integer.parseInt(this.words[1]) - 1;
+                return new MarkCommand(taskNumber);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException("mark command needs a valid task number (e.g., mark 1)");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidCommandException("mark command needs a task number (e.g., mark 1)");
+            }
+        case "unmark":
+            try {
+                taskNumber = Integer.parseInt(this.words[1]) - 1;
+                return new UnmarkCommand(taskNumber);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException("unmark command needs a valid task number (e.g., unmark 1)");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidCommandException("unmark command needs a task number (e.g., unmark 1)");
+            }
+        case "delete":
+            try {
+                taskNumber = Integer.parseInt(this.words[1]) - 1;
+                return new DeleteCommand(taskNumber);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException("delete command needs a valid task number (e.g., delete 1)");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidCommandException("delete command needs a task number (e.g., delete 1)");
+            }
+        case "list":
             return new ListCommand();
-        case"bye":
+        case "bye":
             return new ExitCommand();
         default:
             throw new InvalidCommandException("oh no you did not enter a correct command");

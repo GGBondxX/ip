@@ -22,7 +22,7 @@ public class GGBond {
 
         String line;
 
-        printMessage("Hello! I'm GGBond.\n" + " What can I do for you?");
+        printMessage("Hello! I'm GGBond.\n" + "What can I do for you?");
 
         Command command = null;
         boolean isExit = false;

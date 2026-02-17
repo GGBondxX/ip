@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.InvalidCommandException;
 import task.Task;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public abstract class Command {
 
     }
 
-    public abstract void execute(ArrayList<Task> list);
+    public abstract void execute(ArrayList<Task> list) throws InvalidCommandException;
 
     protected void printAddMessage(ArrayList<Task> list, Task T) {
         System.out.println("----------------------------------------------------");

@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.InvalidCommandException;
 import task.Task;
 
 import java.util.ArrayList;
@@ -13,7 +14,10 @@ public class MarkCommand extends Command{
     }
 
     @Override
-    public void execute(ArrayList<Task> list) {
+    public void execute(ArrayList<Task> list) throws InvalidCommandException{
+        if(targetIndex < 0 || targetIndex >= list.size()) {
+            throw new InvalidCommandException("seems like there is no such task in our current list");
+        }
         Task task = list.get(targetIndex);
         task.setToDone();
         System.out.println("----------------------------------------------------");
