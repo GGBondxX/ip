@@ -1,57 +1,54 @@
 import exceptions.InvalidCommandException;
 import command.Command;
 import parser.Parser;
+import storage.Storage;
 import task.Task;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GGBond {
-    public static void main(String[] args){
-        Scanner in = new Scanner(System.in);
-        Storage storage = new Storage();
-        ArrayList<Task> list;
+    private Storage storage;
+    private ArrayList<Task> list;
+    private Ui ui;
+
+    public GGBond() {
+        ui = new Ui();
+        storage = new Storage();
         try {
             list = storage.load();
         } catch (IOException e) {
-            System.out.println("Could not read data file: " + e.getMessage());
+            ui.showError("Could not read data file: " + e.getMessage());
             list = new ArrayList<>();
         }
+    }
 
-        String line;
-
-        printMessage("Hello! I'm GGBond.\n" + "What can I do for you?");
-
-        Command command = null;
+    public void run() {
+        ui.showWelcome();
         boolean isExit = false;
 
-        while(!isExit) {
+        while (!isExit) {
             try {
-                line = in.nextLine();
-                Parser parser = new Parser(line);
-                command = parser.callCommand();
-                command.execute(list);
+                String fullCommand = ui.readCommand();
+                Parser parser = new Parser(fullCommand);
+                Command command = parser.callCommand();
+                command.execute(list); // Pass Ui to commands if they need to print
                 isExit = command.isExit();
-            } catch(InvalidCommandException e) {
-                System.out.println("----------------------------------------------------");
-                System.out.println(e.getMessage());
-                System.out.println("----------------------------------------------------");
+            } catch (InvalidCommandException e) {
+                ui.showError(e.getMessage());
             }
         }
+
         try {
             storage.save(list);
         } catch (IOException e) {
-            System.out.println("Failed to save data: " + e.getMessage());
+            ui.showError("Failed to save data: " + e.getMessage());
         }
-        printMessage("Bye. Hope to see you again soon!");
-
+        ui.printMessage("Bye. Hope to see you again soon!");
     }
 
-    private static void printMessage(String x) {
-        System.out.println("----------------------------------------------------");
-        System.out.println(x);
-        System.out.println("----------------------------------------------------");
+    public static void main(String[] args) {
+        new GGBond().run();
     }
 }

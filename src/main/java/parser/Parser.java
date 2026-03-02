@@ -84,6 +84,8 @@ public class Parser {
             }
         case "list":
             return new ListCommand();
+        case "clear":
+            return new ClearCommand();
         case "bye":
             return new ExitCommand();
         default:
