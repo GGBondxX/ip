@@ -2,15 +2,16 @@ package command;
 
 import task.Deadlines;
 import task.Task;
-
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DeadlineCommand extends Command{
 
     private String description;
-    private String by;
+    private LocalDate by;
 
-    public DeadlineCommand(String description, String by) {
+    public DeadlineCommand(String description, LocalDate by) {
         this.description = description;
         this.by = by;
     }

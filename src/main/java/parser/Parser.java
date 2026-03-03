@@ -2,6 +2,8 @@ package parser;
 
 import command.*;
 import exceptions.InvalidCommandException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -47,12 +49,17 @@ public class Parser {
                 }
             }
         }
-
         switch (this.words[0]) {
         case "todo":
             return new TodoCommand(description);
         case "deadline":
-            return new DeadlineCommand(description, by);
+            LocalDate deadlineTime;
+            try {
+                deadlineTime = LocalDate.parse(by.trim());
+            } catch (DateTimeParseException e) {
+                throw new InvalidCommandException("enter deadline date in the format of yyyy-mm-dd");
+            }
+            return new DeadlineCommand(description, deadlineTime);
         case "event":
             return new EventCommand(description, from, to);
         case "mark":
