@@ -20,7 +20,12 @@ public class Parser {
         String by = "";
         String from = "";
         String to = "";
+        String keyword = "";
         String currentSection = "desc";
+
+        if(this.words[0].equals("find")) {
+            currentSection = "keyword";
+        }
 
         for (int i = 1; i < words.length; i++) {
             if(words[i].equals("/by")) {
@@ -36,6 +41,9 @@ public class Parser {
                 switch (currentSection) {
                 case "desc":
                     description += (description.isEmpty() ? "" : " ") + words[i];
+                    break;
+                case "keyword":
+                    keyword += (keyword.isEmpty() ? "" : " ") + words[i];
                     break;
                 case "by":
                     by += (by.isEmpty() ? "" : " ") + words[i];
@@ -89,6 +97,8 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new InvalidCommandException("delete command needs a task number (e.g., delete 1)");
             }
+        case "find":
+            return new FindCommand(keyword);
         case "list":
             return new ListCommand();
         case "clear":
