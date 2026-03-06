@@ -19,6 +19,7 @@ public class ListCommand extends Command{
     public void execute(ArrayList<Task> list) {
         int displayInputCount = 1;
         System.out.println("----------------------------------------------------");
+        System.out.println("Here are the tasks in your list:");
         for (Task task : list) {
             System.out.printf("%d.%s\n", displayInputCount, task.toString());
             displayInputCount++;

@@ -30,7 +30,7 @@ public class UnmarkCommand extends Command{
         Task task = list.get(targetIndex);
         task.setToUndone();
         System.out.println("----------------------------------------------------");
-        System.out.println("Nice! I've marked this task as not done yet:");
+        System.out.println("Noted, I've marked this task as not done yet:");
         System.out.printf("%s\n", task.toString());
         System.out.println("----------------------------------------------------");
     }
