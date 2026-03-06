@@ -1,6 +1,10 @@
 # GGBond User Guide
 
-![img.png](img.png)
+  ____  ____ ____                  _ 
+ / ___|/ ___| __ )  ___  _ __   __| |
+| |  _| |  _|  _ \ / _ \| '_ \ / _` |
+| |_| | |_| | |_) | (_) | | | | (_| |
+ \____|\____|____/ \___/|_| |_|\__,_|
 
 GGBond is a lightweight, terminal-based task manager designed for efficient organization. 
 It helps you track simple tasks, strict deadlines, and timed events through an intuitive Command Line Interface (CLI).
