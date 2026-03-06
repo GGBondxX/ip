@@ -5,14 +5,28 @@ import exceptions.InvalidCommandException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deciphers user input strings and transforms them into executable Command objects.
+ * This class handles the extraction of task descriptions, dates, and keywords from the input line.
+ */
 public class Parser {
 
     String[] words;
 
+    /**
+     * Initializes a new Parser by splitting the raw input line into an array of words.
+     * @param line The raw user input string from the command line interface.
+     */
     public Parser(String line) {
         words = line.split(" ");
     }
 
+    /**
+     * Identifies the command type and creates the corresponding Command object.
+     * It parses flags such as /by, /from, and /to to isolate task parameters.
+     * @return A Command object representing the user's intended action.
+     * @throws InvalidCommandException If the input format is incorrect, dates are unparseable, or the command is unknown.
+     */
     public Command callCommand() throws InvalidCommandException {
         this.words[0] = this.words[0].toLowerCase();
         int taskNumber = 0;
