@@ -3,10 +3,10 @@ import command.Command;
 import parser.Parser;
 import storage.Storage;
 import task.Task;
+import ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GGBond {
     private Storage storage;
@@ -33,7 +33,7 @@ public class GGBond {
                 String fullCommand = ui.readCommand();
                 Parser parser = new Parser(fullCommand);
                 Command command = parser.callCommand();
-                command.execute(list); // Pass Ui to commands if they need to print
+                command.execute(list); // Pass ui.Ui to commands if they need to print
                 isExit = command.isExit();
             } catch (InvalidCommandException e) {
                 ui.showError(e.getMessage());
