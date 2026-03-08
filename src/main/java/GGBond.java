@@ -47,7 +47,7 @@ public class GGBond {
         }
         ui.printMessage("Bye. Hope to see you again soon!");
     }
-
+    //test
     public static void main(String[] args) {
         new GGBond().run();
     }
